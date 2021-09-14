@@ -3,6 +3,8 @@ import streamlit as st
 from stvis import pv_static
 import pandas as pd
 
+import datapane as dp
+
 WatchFace = pd.read_csv('WatchFace.csv')
 
 merged_df = pd.merge(WatchFace.loc[:,["WatchFace_Name" , "ComplicationFamily_Name"]] , WatchFace.loc[:,["WatchFace_Name" , "ComplicationFamily_Name"]]
@@ -24,5 +26,18 @@ for idx , row in merged_df_grouped.iterrows():
 #g.add_edge(1,2)
 #g.add_edge(2,3)
 g.force_atlas_2based(overlap=1)
+g.show("network_graph.html")
+#report.append(dp.HTML(read_html('list_of_nodes.html'), name='list_of_nodes'))
+
+def read_html(name: str):
+    import codecs
+    f = codecs.open(name, 'r')
+    return f.read()
+    
+dp.Report(
+  dp.HTML(read_html('network_graph.html'), name='network_graph')
+    #dp.Plot(plot1),
+    #dp.DataTable(source)
+).upload(name="network_graph")
 #g.barnes_hut()
 pv_static(g)

@@ -4,3 +4,4 @@ numpy
 streamlit
 pyvis
 stvis
+datapane
