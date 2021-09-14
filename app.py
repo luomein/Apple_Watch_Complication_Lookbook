@@ -44,10 +44,15 @@ ComplicationTemplate = pd.read_csv('ComplicationTemplate.csv')
 ComplicationTemplate.rename(columns={"Name":"ComplicationTemplate_Name" , "Name.1":"ComplicationFamily_Name"} , inplace=True)
 ComplicationTemplate['ComplicationTemplate_Picture_URL'].fillna('', inplace = True)
 
-##CLKComplicationFamily,Name,Picture_URL,URL,Name,Picture_URL
+##CLKComplicationFamily,ComplicationFamily_Name,ComplicationFamily_Picture_URL,ComplicationFamily_URL,WatchFace_Name,WatchFace_Picture_URL,
+##ComplicationFamily_Group,ComplicationFamily_Group_URL,ComplicationFamily_Templates_Picture_URL,ComplicationFamily_Templates_URL
 WatchFace = pd.read_csv('WatchFace.csv')
 WatchFace.rename(columns={"Name":"ComplicationFamily_Name" , "Name.1":"WatchFace_Name"
   , "Picture_URL" : "ComplicationFamily_Picture_URL", "URL" : "ComplicationFamily_URL" , "Picture_URL.1" : "WatchFace_Picture_URL"} , inplace=True)
+WatchFace['ComplicationFamily_Group'].fillna('', inplace = True)
+WatchFace['ComplicationFamily_Group_URL'].fillna('', inplace = True)
+WatchFace['ComplicationFamily_Templates_Picture_URL'].fillna('', inplace = True)
+WatchFace['ComplicationFamily_Templates_URL'].fillna('', inplace = True)
 #WatchFace['Picture_URL'].fillna('', inplace = True)
 #all_checked = st.sidebar.checkbox('(All)' , value = True)
 #st.sidebar.header('WatchFace')
@@ -124,10 +129,14 @@ cols = st.columns(column_count)
 #st.dataframe(data=WatchFace)
 for f in side_menu :
     if side_menu[f]:
-        #st.markdown(f"<h1><a href='{get_ComplicationFamily(WatchFace , f)['ComplicationFamily_URL']}'>{f}</a></h1>"  , unsafe_allow_html=True )
+        sub_watch_face = get_WatchFace(WatchFace , f)
         st.markdown(f"# [{f}]({get_ComplicationFamily(WatchFace , f)['ComplicationFamily_URL']})"  , unsafe_allow_html=True )
         st.write(f'CLKComplicationFamily = {get_ComplicationFamily(WatchFace , f)["CLKComplicationFamily"]}')
-        sub_watch_face = get_WatchFace(WatchFace , f)
+        ##WatchFace['ComplicationFamily_Group'].fillna('', inplace = True)
+        ##WatchFace['ComplicationFamily_Group_URL'].fillna('', inplace = True)
+        if sub_watch_face['ComplicationFamily_Group'].unique()[0] != '' :
+            st.markdown(f"Group: [{sub_watch_face['ComplicationFamily_Group'].unique()[0]}]({sub_watch_face['ComplicationFamily_Group_URL'].unique()[0]})" , unsafe_allow_html=True )
+
         #st.dataframe(data=sub_watch_face)
         watchface_cols = st.columns(len(sub_watch_face) + 1 )
         watchface_cols[0].image(get_ComplicationFamily(WatchFace , f)['ComplicationFamily_Picture_URL'] , use_column_width = 'auto')
@@ -149,7 +158,13 @@ for f in side_menu :
 
         df = df[df['has_filtered_element'] > 0 ].reset_index()
         dt_cols = st.columns([5] + [1] *  len(checked_filter)  )
-        dt_cols[0].markdown( f"**ComplicationTemplate**" , unsafe_allow_html=True)
+        ##WatchFace['ComplicationFamily_Templates_Picture_URL'].fillna('', inplace = True)
+        ##WatchFace['ComplicationFamily_Templates_URL'].fillna('', inplace = True)
+        if sub_watch_face['ComplicationFamily_Templates_URL'].unique()[0] != '' :
+           dt_cols[0].markdown( f"**[ComplicationTemplates]({sub_watch_face['ComplicationFamily_Templates_URL'].unique()[0]})**" , unsafe_allow_html=True)
+           dt_cols[0].image(sub_watch_face['ComplicationFamily_Templates_Picture_URL'].unique()[0] , use_column_width = 'auto')
+        else :
+           dt_cols[0].markdown( f"**ComplicationTemplates**" , unsafe_allow_html=True)
         for ch in range(len(checked_filter)) :
             dt_cols[ch + 1 ].markdown( f"**{checked_filter[ch]}**" , unsafe_allow_html=True)
         for idx , row in df.iterrows():
@@ -164,7 +179,7 @@ for f in side_menu :
                if row[checked_filter[ch]] == "True" :
                  dt_cols[ch + 1 ].write('✓')
                else :
-                 dt_cols[ch + 1 ].write('')
+                 dt_cols[ch + 1 ].write(' ')
         #dt_cols[0].write( df[['ComplicationTemplate'] + checked_filter ].replace(['True','False'],['✓','']).to_html(escape=False , index=False)  , unsafe_allow_html=True  )
         #dt_cols[1].write('test')
         #streamlit.expander(label, expanded=False)
