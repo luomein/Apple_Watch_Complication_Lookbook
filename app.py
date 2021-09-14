@@ -16,6 +16,12 @@ st.markdown('''
         div.stSelectbox > label {
         font-size: 20px;font-family: "IBM Plex Sans", sans-serif;font-weight: 600;
         }
+        div.stMarkdown > div > p > strong {
+        word-wrap : break-word
+        }
+        div.streamlit-expanderHeader {
+        word-wrap : break-word
+        }
  </style>
 ''', unsafe_allow_html=True)
 ### background-color: #00cc00;
@@ -51,7 +57,7 @@ st.markdown('''
                     font-size:30px;border: 0px;
                     position: fixed;
                     top: -20px;
-                    left:  -180px;
+                    left:  -150px;
                     z-index : 10000;
                     outline:none;
                     background-color: Transparent;
