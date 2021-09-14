@@ -146,12 +146,12 @@ for f in side_menu :
                 df['has_filtered_element'] = df['has_filtered_element'] +  df['Components'].str.contains(ele , na = False ).astype('int32')
 
         df = df[df['has_filtered_element'] > 0 ].reset_index()
-        dt_cols = st.columns([3] + [1] *  len(checked_filter)  )
+        dt_cols = st.columns([5] + [1] *  len(checked_filter)  )
         dt_cols[0].markdown( f"**ComplicationTemplate**" , unsafe_allow_html=True)
         for ch in range(len(checked_filter)) :
             dt_cols[ch + 1 ].markdown( f"**{checked_filter[ch]}**" , unsafe_allow_html=True)
         for idx , row in df.iterrows():
-           dt_cols = st.columns([3] + [1] * len(checked_filter)  )
+           dt_cols = st.columns([5] + [1] * len(checked_filter)  )
            #dt_cols[0].write(row['ComplicationTemplate'])
            with dt_cols[0].expander(row['ComplicationTemplate_Name']) :
                #st.markdown(f"[{row['URL']}]({row['URL']})", unsafe_allow_html=True)
