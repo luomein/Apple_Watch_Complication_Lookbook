@@ -1,4 +1,6 @@
-# File: requirements.txt 
+# File: requirements.txt
 pandas
 numpy
 streamlit
+pyvis
+stvis
