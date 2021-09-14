@@ -163,7 +163,8 @@ for f in side_menu :
         ##WatchFace['ComplicationFamily_Templates_URL'].fillna('', inplace = True)
         if sub_watch_face['ComplicationFamily_Templates_URL'].unique()[0] != '' :
            dt_cols[0].markdown( f"**[ComplicationTemplates]({sub_watch_face['ComplicationFamily_Templates_URL'].unique()[0]})**" , unsafe_allow_html=True)
-           dt_cols[0].image(sub_watch_face['ComplicationFamily_Templates_Picture_URL'].unique()[0] , use_column_width = 'auto')
+           if sub_watch_face['ComplicationFamily_Templates_Picture_URL'].unique()[0] != '' :
+              dt_cols[0].image(sub_watch_face['ComplicationFamily_Templates_Picture_URL'].unique()[0] , use_column_width = 'auto')
         else :
            dt_cols[0].markdown( f"**ComplicationTemplates**" , unsafe_allow_html=True)
         for ch in range(len(checked_filter)) :
