@@ -57,9 +57,10 @@ st.markdown('''
                     font-size:30px;border: 0px;
                     position: fixed;
                     top: -20px;
-                    left:  -150px;
+                    left:  50px;
                     z-index : 10000;
                     outline:none;
+                    width: 50px;
                     background-color: Transparent;
                     }
  </style>
