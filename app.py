@@ -33,12 +33,12 @@ def get_Complication(df , family) :
 def get_ComplicationFamily(df , family ) :
        return df.loc[df['ComplicationFamily_Name'] == family ].reset_index().iloc[0]
 
-def get_WatchFace(df , family, watchface = '') :
+def get_WatchFace(df , family, watchface = [] ) :
   #st.write(type(watchface))
-  if watchface == '' :
+  if watchface == [] :
     return df.loc[df['ComplicationFamily_Name'] == family ].reset_index()
   else :
-    return df.loc[(df['ComplicationFamily_Name'] == family) & (df['WatchFace_Name'] == watchface)  ].reset_index()
+    return df.loc[(df['ComplicationFamily_Name'] == family) & (df['WatchFace_Name'].isin(watchface) )  ].reset_index()
 
 ComplicationTemplate = pd.read_csv('ComplicationTemplate.csv')
 ComplicationTemplate.rename(columns={"Name":"ComplicationTemplate_Name" , "Name.1":"ComplicationFamily_Name"} , inplace=True)
@@ -75,7 +75,8 @@ home_btn = st.button("🏚")
 if home_btn and 'selected_menu'   in st.session_state :
       st.session_state['selected_menu'] = ''
 
-selected_watch_face =  st.sidebar.selectbox('WatchFace' , ('' , ) + (*(WatchFace.WatchFace_Name.unique().tolist()),)   )
+### st.multiselect("test" , ['1','2','3'])
+selected_watch_face =  st.sidebar.multiselect('WatchFace' ,   (*(WatchFace.WatchFace_Name.unique().tolist()),)   )
 #st.sidebar.write(selector_watch_face)
 #st.sidebar.markdown(f"<hr>"  , unsafe_allow_html=True )
 
@@ -197,8 +198,8 @@ if  ('selected_menu' not  in st.session_state ) or ('selected_menu'   in st.sess
         WatchFace['value'] = '✓'
         WatchFace.fillna( '' , inplace = True)
         WatchFace['WatchFace'] =  WatchFace['WatchFace_Name'] + '<br><img  width="80" src="' + WatchFace['WatchFace_Picture_URL'] + '" >'
-        if selected_watch_face != '' :
-            WatchFace = WatchFace[WatchFace['WatchFace_Name'] == selected_watch_face ]
+        if selected_watch_face != [] :
+            WatchFace = WatchFace[WatchFace['WatchFace_Name'].isin( selected_watch_face )  ]
         WatchFace_pivot = WatchFace.pivot(index='WatchFace', columns='ComplicationFamily_Name', values='value' )
         WatchFace_pivot.fillna( '' , inplace = True)
         WatchFace_pivot = WatchFace_pivot.T.reset_index()
