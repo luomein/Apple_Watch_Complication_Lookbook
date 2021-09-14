@@ -13,7 +13,7 @@ import numpy as np
 st.set_page_config(layout="wide")
 st.markdown('''
 <style>
-        div.stSelectbox > label {
+        div.stMultiSelect > label {
         font-size: 20px;font-family: "IBM Plex Sans", sans-serif;font-weight: 600;
         }
         div.stMarkdown > div > p > strong {
