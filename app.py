@@ -36,7 +36,7 @@ def get_WatchFace(df , family, watchface = '') :
 
 ComplicationTemplate = pd.read_csv('ComplicationTemplate.csv')
 ComplicationTemplate.rename(columns={"Name":"ComplicationTemplate_Name" , "Name.1":"ComplicationFamily_Name"} , inplace=True)
-ComplicationTemplate['Picture_URL'].fillna('', inplace = True)
+ComplicationTemplate['ComplicationTemplate_Picture_URL'].fillna('', inplace = True)
 
 ##CLKComplicationFamily,Name,Picture_URL,URL,Name,Picture_URL
 WatchFace = pd.read_csv('WatchFace.csv')
@@ -149,7 +149,7 @@ for f in side_menu :
            #dt_cols[0].write(row['ComplicationTemplate'])
            with dt_cols[0].expander(row['ComplicationTemplate_Name']) :
                #st.markdown(f"[{row['URL']}]({row['URL']})", unsafe_allow_html=True)
-               st.markdown(f"<a href='{row['URL']}' target='_blank'><img src='{row['Picture_URL']}'></a>", unsafe_allow_html=True)
+               st.markdown(f"<a href='{row['ComplicationTemplate_URL']}' target='_blank'><img src='{row['ComplicationTemplate_Picture_URL']}'></a>", unsafe_allow_html=True)
                #if row['Picture_URL'] != np.nan and  row['Picture_URL']!= '' :
                #        st.image(row['Picture_URL'] )
            for ch in range(len(checked_filter)) :
