@@ -109,6 +109,7 @@ for f in sorted( ComplicationTemplate['ComplicationFamily_Name'].dropna().unique
     else :
       ###st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
       st.sidebar.markdown(f"<p style='text-align: center;'>{f}</p>", unsafe_allow_html=True)
+st.sidebar.markdown(f"<br><br><br>"  , unsafe_allow_html=True )
 ### agree = st.checkbox('I agree')
 any_selected_menu = False
 for f in side_menu:
