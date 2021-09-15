@@ -222,7 +222,8 @@ if  ('selected_menu' not  in st.session_state ) or ('selected_menu'   in st.sess
         st.title('Apple Watch Complication Lookbook')
         st.write(WatchFace_pivot.to_html(escape=False , index=False , index_names = False ) , unsafe_allow_html=True )
 
-st.sidebar.components.html('''
+with st.sidebar: 
+   components.html('''
 <!-- Default Statcounter code for
 apple_watch_complication_lookboo
 https://share.streamlit.io/luomein/apple_watch_complication_lookbook/main/app.py
@@ -236,7 +237,7 @@ document.write("<sc"+"ript type='text/javascript' src='" +
 scJsHost+
 "statcounter.com/counter/counter.js'></"+"script>");
 </script>
-<noscript><div class="statcounter"><a title="free hit
+<noscript><br><br><br><div class="statcounter"><a title="free hit
 counter" href="https://statcounter.com/"
 target="_blank"><img class="statcounter"
 src="https://c.statcounter.com/12618561/0/3eb69160/0/"
