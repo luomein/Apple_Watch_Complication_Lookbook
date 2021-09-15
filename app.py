@@ -222,7 +222,7 @@ if  ('selected_menu' not  in st.session_state ) or ('selected_menu'   in st.sess
         st.title('Apple Watch Complication Lookbook')
         st.write(WatchFace_pivot.to_html(escape=False , index=False , index_names = False ) , unsafe_allow_html=True )
 
-components.html('''
+st.sidebar.components.html('''
 <!-- Default Statcounter code for
 apple_watch_complication_lookboo
 https://share.streamlit.io/luomein/apple_watch_complication_lookbook/main/app.py
