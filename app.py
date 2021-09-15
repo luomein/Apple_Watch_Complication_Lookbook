@@ -7,7 +7,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import streamlit.components.v1 as components
 
 
 st.set_page_config(layout="wide")
@@ -221,20 +221,26 @@ if  ('selected_menu' not  in st.session_state ) or ('selected_menu'   in st.sess
         #st.dataframe(WatchFace_pivot)
         st.title('Apple Watch Complication Lookbook')
         st.write(WatchFace_pivot.to_html(escape=False , index=False , index_names = False ) , unsafe_allow_html=True )
-st.markdown('''
-<!-- Default Statcounter code for apple_watch_complication_lookboo
+
+components.html('''
+<!-- Default Statcounter code for
+apple_watch_complication_lookboo
 https://share.streamlit.io/luomein/apple_watch_complication_lookbook/main/app.py
 -->
 <script type="text/javascript">
 var sc_project=12618561; 
-var sc_invisible=1; 
+var sc_invisible=0; 
 var sc_security="3eb69160"; 
+var scJsHost = "https://";
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
 </script>
-<script type="text/javascript"
-src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="Web Analytics"
-href="https://statcounter.com/" target="_blank"><img class="statcounter"
-src="https://c.statcounter.com/12618561/0/3eb69160/1/" alt="Web Analytics"
+<noscript><div class="statcounter"><a title="free hit
+counter" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/12618561/0/3eb69160/0/"
+alt="free hit counter"
 referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
-''' ,  unsafe_allow_html=True)
+''' )
