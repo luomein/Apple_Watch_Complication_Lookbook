@@ -195,22 +195,25 @@ st.markdown('''
 
 if  ('selected_menu' not  in st.session_state ) or ('selected_menu'   in st.session_state  and st.session_state['selected_menu'] == '') :
         ##df.pivot(index='foo', columns='bar', values='baz')
+        ComplicationTemplate['has_filtered_element'] = 0
+        for ele in filter :
+            if filter[ele]  :
+                ComplicationTemplate['has_filtered_element'] = ComplicationTemplate['has_filtered_element'] +  ComplicationTemplate['Components'].str.contains(ele , na = False ).astype('int32')
+        filtered_Complication_Family = ComplicationTemplate.loc[ ComplicationTemplate['has_filtered_element'] > 0 , 'ComplicationFamily_Name'].dropna().unique().tolist()
 
         WatchFace['value'] = '✓'
         WatchFace.fillna( '' , inplace = True)
         WatchFace['WatchFace'] =  WatchFace['WatchFace_Name'] + '<br><img  width="80" src="' + WatchFace['WatchFace_Picture_URL'] + '" >'
         if selected_watch_face != [] :
             WatchFace = WatchFace[WatchFace['WatchFace_Name'].isin( selected_watch_face )  ]
+        WatchFace = WatchFace[WatchFace['ComplicationFamily_Name'].isin( filtered_Complication_Family )  ]
+
         WatchFace_pivot = WatchFace.pivot(index='WatchFace', columns='ComplicationFamily_Name', values='value' )
         WatchFace_pivot.fillna( '' , inplace = True)
         WatchFace_pivot = WatchFace_pivot.T.reset_index()
 
-        ComplicationTemplate['has_filtered_element'] = 0
-        for ele in filter :
-            if filter[ele]  :
-                ComplicationTemplate['has_filtered_element'] = ComplicationTemplate['has_filtered_element'] +  ComplicationTemplate['Components'].str.contains(ele , na = False ).astype('int32')
         #df[df['A'].isin([3, 6])]
-        WatchFace_pivot = WatchFace_pivot[WatchFace_pivot['ComplicationFamily_Name'].isin(ComplicationTemplate.loc[ ComplicationTemplate['has_filtered_element'] > 0 , 'ComplicationFamily_Name'].dropna().unique().tolist()  ) ]
+        WatchFace_pivot = WatchFace_pivot[WatchFace_pivot['ComplicationFamily_Name'].isin(filtered_Complication_Family ) ]
         WatchFace_pivot.rename(columns={"ComplicationFamily_Name":" "  } , inplace = True)
         #WatchFace_pivot.drop(columns=['WatchFace'] , inplace = True)
         #df.drop(columns=['B', 'C'])
