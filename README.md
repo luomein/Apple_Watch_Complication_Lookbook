@@ -6,5 +6,7 @@ See my notes here.
 
 [Apple Watch Complication Lookbook---Part 2](https://luomein.medium.com/apple-watch-complication-lookbook-part-2-538141dbd3fa)
 
+[Apple Watch Complication Lookbook---Part 3](https://luomein.medium.com/apple-watch-complication-lookbook-part-3-9e09a4662721)
+
 And the rendered [Streamlit web app](https://share.streamlit.io/luomein/apple_watch_complication_lookbook/main/app.py)
 
