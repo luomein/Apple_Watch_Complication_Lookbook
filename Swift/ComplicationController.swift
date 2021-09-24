@@ -88,6 +88,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         if complication.family == .modularLarge{
             handler(CLKComplicationTimelineEntry(date: Date(), complicationTemplate: CLKComplicationTemplateModularLargeStandardBody(headerTextProvider: CLKSimpleTextProvider(text: "modularLarge", shortText: "ml") , body1TextProvider:   CLKSimpleTextProvider(text: "modularLarge", shortText: "ml")  )))
         }
+        if complication.family == .extraLarge{
+            handler(CLKComplicationTemplateExtraLargeStackText(line1TextProvider: CLKSimpleTextProvider(text: "extraLarge", shortText: "el") , line2TextProvider: CLKSimpleTextProvider(text: "extraLarge", shortText: "el") ))
+        }
     }
     
     func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
@@ -131,6 +134,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         if complication.family == .modularLarge{
             handler(  CLKComplicationTemplateModularLargeStandardBody(headerTextProvider: CLKSimpleTextProvider(text: "modularLarge", shortText: "ml") , body1TextProvider:   CLKSimpleTextProvider(text: "modularLarge", shortText: "ml")  ))
+        }
+        if complication.family == .extraLarge{
+            handler(CLKComplicationTemplateExtraLargeStackText(line1TextProvider: CLKSimpleTextProvider(text: "extraLarge", shortText: "el") , line2TextProvider: CLKSimpleTextProvider(text: "extraLarge", shortText: "el") ))
         }
     }
 }
